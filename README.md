@@ -135,6 +135,7 @@ The server resolves the id back to a URL, sends it to kie.ai's image-to-image en
 
 ## Stack
 
+| | |
 |---|---|
 | Framework | Next.js 15 (App Router) |
 | Styling | Tailwind CSS 3 |

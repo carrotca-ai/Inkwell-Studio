@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neural Studio - Grid Generation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "secondary-fixed": "#d4e4fa",
+                "on-error-container": "#ffdad6",
+                "on-secondary-container": "#a7b6cc",
+                "surface-dim": "#111316",
+                "surface-variant": "#333538",
+                "primary-container": "#dde3eb",
+                "tertiary-fixed-dim": "#b9c7e0",
+                "surface-bright": "#37393d",
+                "tertiary": "#ffffff",
+                "inverse-primary": "#595f66",
+                "surface-container": "#1e2023",
+                "surface": "#111316",
+                "secondary": "#b9c8de",
+                "on-secondary-fixed": "#0d1c2d",
+                "primary-fixed-dim": "#c1c7cf",
+                "outline-variant": "#44474a",
+                "tertiary-fixed": "#d5e3fd",
+                "on-tertiary-fixed": "#0d1c2f",
+                "on-primary-fixed-variant": "#41474e",
+                "on-error": "#690005",
+                "surface-container-lowest": "#0c0e11",
+                "inverse-on-surface": "#2f3034",
+                "surface-container-low": "#1a1c1f",
+                "inverse-surface": "#e2e2e6",
+                "outline": "#8e9195",
+                "error": "#ffb4ab",
+                "tertiary-container": "#d5e3fd",
+                "error-container": "#93000a",
+                "background": "#000000",
+                "on-surface-variant": "#c5c6cb",
+                "primary-fixed": "#dde3eb",
+                "on-tertiary": "#233144",
+                "surface-container-high": "#282a2d",
+                "on-secondary": "#233143",
+                "on-surface": "#ffffff",
+                "secondary-fixed-dim": "#b9c8de",
+                "secondary-container": "#39485a",
+                "on-tertiary-container": "#57657b",
+                "on-tertiary-fixed-variant": "#3a485c",
+                "on-secondary-fixed-variant": "#39485a",
+                "on-primary-fixed": "#161c22",
+                "primary": "#ffffff",
+                "on-primary-container": "#5f656c",
+                "on-primary": "#2b3137",
+                "surface-tint": "#c1c7cf",
+                "surface-container-highest": "#333538",
+                "on-background": "#ffffff"
+        },
+        "borderRadius": {
+                "DEFAULT": "1rem",
+                "lg": "2rem",
+                "xl": "3rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "unit": "8px",
+                "gutter": "24px",
+                "margin-mobile": "20px",
+                "margin-desktop": "64px",
+                "container-max": "1200px"
+        },
+        "fontFamily": {
+                "label-md": [
+                        "Geist"
+                ],
+                "headline-xl": [
+                        "Geist"
+                ],
+                "body-md": [
+                        "Geist"
+                ],
+                "body-lg": [
+                        "Geist"
+                ],
+                "label-sm": [
+                        "Geist"
+                ],
+                "headline-lg-mobile": [
+                        "Geist"
+                ],
+                "headline-lg": [
+                        "Geist"
+                ]
+        },
+        "fontSize": {
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "1.4",
+                                "letterSpacing": "0.03em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "1.4",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-surface');
+        }
+        .razor-edge {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .frosted-obsidian {
+            background-color: theme('colors.surface-container-highest');
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        .glow-hover:hover {
+            box-shadow: inset 0 0 10px rgba(185, 200, 222, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hide scrollbar for horizontal scroll areas */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-20 pb-28 bg-[#000000]">
+<!-- TopAppBar (Floating Island) -->
+<header class="fixed top-4 left-4 right-4 z-50 flex items-center justify-between px-6 h-16 bg-surface/70 dark:bg-surface/70 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.4)] rounded-full border border-white/10 max-w-container-max mx-auto">
+<div class="flex items-center gap-4 active:scale-95 duration-200 ease-in-out transition-transform">
+<svg class="w-6 h-6 text-primary dark:text-primary" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<div class="flex items-center justify-center flex-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-semibold tracking-tight text-white dark:text-white">Neural Studio</span>
+</div>
+<div class="flex items-center gap-4 active:scale-95 duration-200 ease-in-out hover:bg-surface-variant/50 dark:hover:bg-surface-variant/50 transition-colors rounded-full p-1 cursor-pointer">
+<div class="w-8 h-8 rounded-full overflow-hidden razor-edge">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwy3fN9zuCNhbmAQs0fes9mRkQ5nCscnm6OnIppsnSYPZevbQRiG-WfrvPktu_Fg2rhCusOrY0W_aRbxBboYngG45SoV8DtFRtSaJBmd5NP8e761SW8dazjYE-PEwFFTgiw2Lxcpj-xgftkPxs0QbltysFu42DjvYcoys58cSoeYkYfI51-o9eTb2yYI2DKrc39EaVLxG3G8WWhIdDZvRNc3JWYoaZM_ZGbHJrZpEJ3jo59YNkByOe7a7FblXA5b1Mm1aLNaVFAzQ"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-6 pb-36">
+<!-- Tab Navigation (Ask / Imagine) -->
+<nav class="flex justify-center gap-8 mb-8 border-b border-white/10 pb-4">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-white transition-colors">Ask</button>
+<button class="font-label-md text-label-md text-white relative font-bold">
+                Imagine
+                <div class="absolute -bottom-[17px] left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-white"></div>
+</button>
+</nav>
+<!-- Animate your photos Section -->
+<section class="mb-12">
+<div class="flex justify-between items-end mb-4">
+<h2 class="font-body-md text-body-md text-white">Animate your photos</h2>
+<button class="font-label-sm text-label-sm text-on-surface-variant hover:text-white">See All</button>
+</div>
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
+<!-- Simple placeholder grid simulating the reference image's top row -->
+<div class="w-24 h-24 flex-shrink-0 bg-surface-container-high overflow-hidden razor-edge">
+<img alt="An empty, austere industrial warehouse space with white tiled floors and concrete walls, illuminated by sterile fluorescent lighting. The atmosphere is stark, minimalist, and slightly haunting, fitting a clinical or brutalist architectural aesthetic within a dark obsidian UI context." class="w-full h-full object-cover opacity-60 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf9yx16HmXtGkTIG4HhRpzbJmAs9QQQPOTtOCSBB-mi6ERHYN9r-gq6XCjdsr509lmULU_XpWyj-utnP6lyjzgphFWJDvz4Lx9jxpnVvoFqrJV1_JjzdWw0hJjwLehEPSrhn-4vePrRdYRvjFtW6yAB3JV7_0fKBRWubn3yxlBHAFC1X00kcnFTkK9bHqsysj6fcBZ-Im27hea1reT_588O9Fx2YUwp6QqY-xbY9MRkbUzGvMXj-_6lduOxkomvVFP9rd4GKJZl-E"/>
+</div>
+<div class="w-24 h-24 flex-shrink-0 bg-surface-container-high overflow-hidden razor-edge">
+<img alt="An empty, austere industrial warehouse space with white tiled floors and concrete walls, illuminated by sterile fluorescent lighting. The atmosphere is stark, minimalist, and slightly haunting, fitting a clinical or brutalist architectural aesthetic within a dark obsidian UI context." class="w-full h-full object-cover opacity-70 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-ZCfLM6kl8gevVGZ8_0xZcq7ev6UbyS3q0O5map-qiy2Qurowerk0_RqJFBYd0mtqfQYjpBE-HrQOrin-bSFxprzlJgLq-m9yuBBAHHHyIEtitkO4Bbk6sHoXiDxnVi0lnXLxH25AWlzfszqY5IShbtJwe5p8kw64-Vdj6cI4Tx8FVf74AtELp3swTGLp2s3Ryl23S4seG1ffCG0QWTcWpV3SLBQiz3pS5_rWK6xvJIFIy9rwqKXQATbw8V854CSuhFbOMGhDWws"/>
+</div>
+<div class="w-24 h-24 flex-shrink-0 bg-surface-container-high overflow-hidden razor-edge">
+<img alt="An empty, austere industrial warehouse space with white tiled floors and concrete walls, illuminated by sterile fluorescent lighting. The atmosphere is stark, minimalist, and slightly haunting, fitting a clinical or brutalist architectural aesthetic within a dark obsidian UI context." class="w-full h-full object-cover opacity-80 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtHHTjmMj_Wk3NQgN8DB_RG0MnilW-1JRzLH99gkVJcydXGEt_mOgHXnNauW5bs45HTKpa5Kf27-VKIRf0aJoIMK_1W-NiOw2M9rJlegLfyWDWxOmvqtMddIGdiSjWdrx8dKwcCMZyb2nMAqR5U1VaASFTYaaYNWdb55d2Gmkjl5G5jn-ACjNU3wUSwIHhsYwHROaMPvw2ee9MMOPiwbngKH2bhvp-Q7AdRtroMbPWQN3VNQB3wL_p9eteQiOWLHcO5qcXh1EQjEY"/>
+</div>
+<div class="w-24 h-24 flex-shrink-0 bg-surface-container-high overflow-hidden razor-edge">
+<img alt="An empty, austere industrial warehouse space with white tiled floors and concrete walls, illuminated by sterile fluorescent lighting. The atmosphere is stark, minimalist, and slightly haunting, fitting a clinical or brutalist architectural aesthetic within a dark obsidian UI context." class="w-full h-full object-cover opacity-90 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSzYd7hT2lVI15ONRXJG1brxqDfFktxJyweqk1oR5pw0MwEngXReoVOEP0EutWq2K7aGHZmp7i79ouSpNyhgmQsEetRM6cyQBot12FaPND4QijLVFZxFaYS1TK_ZLn74jDYopiaIcp60EtcKG5XiNf6fezRIaVIQzDJbVkWq7anF3M88uf4-wJs6DU0X8k80QyyUk4mIb4f1DHmtwMxTwfrwXdCoNXZ3LVNaf_S13lqyGlqKDlnn_K2290Q0LLeOJI8kCy2j2joH0"/>
+</div>
+</div>
+</section>
+<!-- Create from Template Section -->
+<section class="mb-12">
+<h2 class="font-body-md text-body-md text-white mb-4">Create from Template</h2>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-2 snap-x">
+<!-- Template Card 1 -->
+<div class="w-32 h-48 flex-shrink-0 overflow-hidden relative razor-edge glow-hover transition-all cursor-pointer snap-start group">
+<img alt="A stylized, 3D rendered character portrait with oversized eyes and a cute expression, resembling modern chibi or anime figurine aesthetics. The character wears a denim jacket. The lighting is soft and studio-quality, set against a blurred urban background, fitting a sleek digital template preview." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqpTO0KqUDmbTmseSEJT29sAE1844Ag6NSwsgLHH4kQ6W5Ta41eBLecAAo-qt_B3Wb-WsW_z644k0OvBJZRiFy3Fa9Y69PbQCjomOJUwhMYlrSnDI6nRpd2J2SqHTe3tGE7YQ-Q8i_nCEEnyaaO1JMlfO85JllcFhQQYWXUb1_n95jOjcadgCQJ7eHc0RgQr81-Mc5PwwDW1jvvAL5ndcoedTv0hw-EqIJVM23HpkP0HHsExd-ZFTZhL0mpMgP8onjT8GIcCfOrCM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<span class="absolute bottom-3 left-3 font-body-md text-body-md text-white z-10 font-medium">Chibi</span>
+</div>
+<!-- Template Card 2 -->
+<div class="w-32 h-48 flex-shrink-0 overflow-hidden relative razor-edge glow-hover transition-all cursor-pointer snap-start group">
+<img alt="A professional corporate headshot of a smiling young woman wearing a dark blazer over a white shirt. The lighting is balanced and flattering, set against a clean, neutral gray background. The overall tone is polished, trustworthy, and modern, suitable for a business profile template." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBudyV0Joh5h968CDkREtxe2TyZ1f18B_fPCEkCO9vNyOGVSO2rbKSRrq0vC4b0Rn1Y0s2ishZmxWn9GdK39dM7Rb3aJ-SelhuSDQUyOLntzdjN74EgEYsftvNwlRSkggDyRBIkMf__T199FK8UhAnlCpR2XjpcZPv3W3p68jmO4dNipct6DGU5P9suQQTJFocRabPbM_fD3gRFMHI0IX-lJnziCBtS7nWYPW__Pin3HI6D0O4G5NQOX0odDnUqCFvFwec9jSu7Jr0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<span class="absolute bottom-3 left-3 font-body-md text-body-md text-white z-10 font-medium leading-tight">Professional<br/>Headshot</span>
+</div>
+<!-- Template Card 3 (Logo Editor - Simulated with gradient) -->
+<div class="w-32 h-48 flex-shrink-0 overflow-hidden relative razor-edge glow-hover transition-all cursor-pointer snap-start bg-surface-container-high flex flex-col items-center justify-center">
+<svg class="w-8 h-8 text-white mb-4 opacity-50" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<span class="absolute bottom-3 left-3 font-body-md text-body-md text-white z-10 font-medium">Logo Editor</span>
+</div>
+<!-- Template Card 4 -->
+<div class="w-32 h-48 flex-shrink-0 overflow-hidden relative razor-edge glow-hover transition-all cursor-pointer snap-start group">
+<img alt="A retro-styled portrait capturing the essence of 1970s fashion. Warm, nostalgic color grading with film grain. The subject is partially visible, wearing vintage clothing against a softly blurred background suggestive of an old city street. The mood is cinematic and nostalgic." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr1jdDEd0GisVAXXqlQBz_A5yvXUTGNVXADbnDUmZj8gszyJRixYEatT8eItXYPH7o3mcjvmr2HaYYMeP61F8-sosSTNb64kWJno3aU_0BJn9dF3WRD6iOEOSpMfF80TSMl1VpH7f58hlU_tDRNIa6VJSFz094MJ7aO1ZgyKTsRenPGIqGoztugQBGHWrym3K50x5lU8sTE37e_n132l8W9RSq4GfpFBvtqoxiwWp6Qpy85AX05KpbD7DxzBxXfKwHQKbiz5zXPIE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<span class="absolute bottom-3 left-3 font-body-md text-body-md text-white z-10 font-medium leading-tight">70s Style</span>
+</div>
+</div>
+</section>
+<!-- Generation Grid (2x2 tightly packed squares) -->
+<section class="grid grid-cols-2 gap-1 mb-8 overflow-hidden border border-white/5 bg-surface-container-lowest">
+<!-- Grid Item 1 -->
+<div class="relative aspect-square overflow-hidden group cursor-pointer">
+<img alt="A cinematic portrait of a young woman in a rustic, textured dress, holding a woven basket full of wildflowers. The setting is dimly lit, perhaps a barn or rustic room, with dramatic, slatted sunlight filtering through, creating high-contrast shadows. The mood is poetic, quiet, and intimately connected to nature." class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt7iZBNLpjk0_YNk95XmfTOxxe154qG8oC7-2rTSzckb3AETt3_DgYLY6LfON4ylbRGf_t9z7O5EZ-sLqAFCb0vsRhBbTpbaVx2FewDvAtBA3smBfr8IeicUSVD6R_L4nWMPueI7GmoLcKOv1MGw9ct4En4uLGWXjLv8TGxlL_r_pQ34VXURbYw3I5Dm69SsfhkNpqMBVm3sCZjHwgQoc1TDzQaV5OCzJVsVkJTWeHjRJRcd668XCVP6UUihcu031al-5V7H1x_3U"/>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-surface-container-highest/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+<div class="absolute bottom-3 left-3 p-2 text-white">
+<svg class="w-8 h-8 drop-shadow-md" fill="currentColor" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</div>
+</div>
+<!-- Grid Item 2 -->
+<div class="relative aspect-square overflow-hidden group cursor-pointer">
+<img alt="A magical, illustrative scene showing a young child with a blue scarf standing in a golden, grassy field at twilight, facing a glowing red fox. The sky above is a dramatic gradient of deep blue and fiery orange sunset hues, dotted with early stars. The style is reminiscent of classic storybook illustrations, evoking wonder and companionship." class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3wUmPj9vShdrEwEwvKdzaQ8gGsKziBfMefJrzdtWr3KILIUgJ4IzepLFwT0zW8fNZ-oGtgOrix0IbCFhnmZxawinNYvNcoMB_gbkMpttCyD4Aytoq60rSh1yoK_dvrNytvvBCx67B6On-bEqmlfYVuHQblifFY-eD3aU1NsY5EKsebcIqNjcg6U9ZjRpqdMCHuRUf6I1nL2ta4Jy1oamhReWDA5FHNXrn2nCRQ1i6_f0Q2VmjPre0hVT5I9_d0rZ7s2jEiv8Udms"/>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-surface-container-highest/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+<!-- Grid Item 3 -->
+<div class="relative aspect-square overflow-hidden group cursor-pointer">
+<div class="w-full h-full bg-gradient-to-br from-surface-container-high to-surface-container-lowest flex items-center justify-center">
+<!-- Simulating a space/cosmos generation -->
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&amp;w=600&amp;auto=format&amp;fit=crop')] bg-cover opacity-80 mix-blend-screen" data-alt="A breathtaking view of deep space, featuring a nebulous cloud of stardust in hues of deep purple and cosmic blue. Tiny, brilliant stars are scattered across the void, with a bright, luminous celestial body anchoring the composition. The aesthetic is vast, awe-inspiring, and slightly surreal, fitting a sci-fi digital canvas."></div>
+</div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-surface-container-highest/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity z-10">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+<!-- Grid Item 4 -->
+<div class="relative aspect-square overflow-hidden group cursor-pointer">
+<div class="w-full h-full bg-gradient-to-br from-surface-container to-surface-container-lowest flex items-center justify-center">
+<!-- Simulating a landscape generation -->
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1615184697985-c9bde1b07da7?q=80&amp;w=600&amp;auto=format&amp;fit=crop')] bg-cover opacity-80" data-alt="An abstract, otherworldly landscape featuring jagged, dark monolithic structures rising against a vibrant, fiery sunset sky. The ground appears barren and alien, bathed in the warm, intense light of the dying sun. The mood is dramatic, desolate, and heavily stylized, suggesting a fantasy or sci-fi concept art piece."></div>
+</div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-surface-container-highest/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity z-10">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+</section>
+</main>
+<!-- Prompt Input Area (Fixed above BottomNav) -->
+<div class="fixed bottom-[110px] left-0 w-full px-margin-mobile z-40 flex gap-2 max-w-container-max mx-auto right-0">
+<div class="flex-1 frosted-obsidian rounded-full flex items-center px-6 py-4 group border border-outline-variant/30 transition-all focus-within:border-primary/50">
+<svg class="w-6 h-6 text-on-surface-variant mr-3 group-focus-within:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<input class="w-full bg-transparent border-none text-body-lg font-body-lg text-white placeholder:text-on-surface-variant/60 focus:ring-0 p-0" placeholder="Type to imagine" type="text"/>
+</div>
+<button class="w-14 h-14 rounded-full frosted-obsidian flex items-center justify-center text-white hover:text-primary transition-colors active:scale-95 border border-outline-variant/30">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+<!-- BottomNavBar (Floating Island) -->
+<nav class="fixed bottom-4 left-4 right-4 z-50 flex justify-around items-center px-4 py-3 bg-surface-container-low/80 dark:bg-surface-container-low/80 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-full border border-white/10 md:hidden max-w-container-max mx-auto">
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-white dark:text-white rounded-full px-6 py-2 transition-all duration-300 active:scale-90 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:bg-surface-bright dark:hover:bg-surface-bright">
+<svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+<span class="font-label-sm text-label-sm tracking-widest font-bold">Studio</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-6 py-2 transition-all duration-300 active:scale-90 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:bg-surface-bright dark:hover:bg-surface-bright rounded-full hover:text-white">
+<svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+<span class="font-label-sm text-label-sm tracking-widest font-bold">Chat</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-6 py-2 transition-all duration-300 active:scale-90 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:bg-surface-bright dark:hover:bg-surface-bright rounded-full hover:text-white">
+<svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+<span class="font-label-sm text-label-sm tracking-widest font-bold">Editor</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-6 py-2 transition-all duration-300 active:scale-90 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:bg-surface-bright dark:hover:bg-surface-bright rounded-full hover:text-white">
+<svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect height="18" rx="4" width="18" x="3" y="3"></rect><path d="M3 9h18M9 21V9"></path></svg>
+<span class="font-label-sm text-label-sm tracking-widest font-bold">Vault</span>
+</button>
+</nav>
+</body></html>

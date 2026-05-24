@@ -7,8 +7,8 @@
 
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "neural-studio.kie-keys.v1";
-const EVENT = "neural-studio:kie-keys:changed";
+const STORAGE_KEY = "inkwell.kie-keys.v1";
+const EVENT = "inkwell:kie-keys:changed";
 
 export type StoredKey = {
   key: string;

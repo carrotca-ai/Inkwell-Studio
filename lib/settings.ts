@@ -7,8 +7,8 @@
 
 import { useEffect, useState } from "react";
 
-const KEY = "neural-studio.settings.v1";
-const EVENT = "neural-studio:settings:changed";
+const KEY = "inkwell.settings.v1";
+const EVENT = "inkwell:settings:changed";
 
 export type AspectRatio = "1:1" | "2:3" | "3:2" | "16:9" | "9:16";
 

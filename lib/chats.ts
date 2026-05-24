@@ -7,9 +7,9 @@
  * mutation, including same-tab.
  */
 
-const KEY = "neural-studio.chats.v1";
-const ACTIVE_KEY = "neural-studio.chats.active.v1";
-const EVENT = "neural-studio:chats:changed";
+const KEY = "inkwell.chats.v1";
+const ACTIVE_KEY = "inkwell.chats.active.v1";
+const EVENT = "inkwell:chats:changed";
 
 export type ChatImageSlot = {
   prompt: string;

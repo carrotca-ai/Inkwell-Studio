@@ -4,8 +4,8 @@
 
 import { useEffect, useState } from "react";
 
-const KEY = "neural-studio.chrome.v1";
-const EVENT = "neural-studio:chrome:changed";
+const KEY = "inkwell.chrome.v1";
+const EVENT = "inkwell:chrome:changed";
 
 export type ChromeState = {
   topHidden: boolean;

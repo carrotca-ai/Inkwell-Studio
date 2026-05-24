@@ -36,7 +36,7 @@ export function SideNav() {
       >
         <Triangle className="w-5 h-5 text-white" strokeWidth={1.8} />
         <span className="text-body-lg font-semibold tracking-tight text-white">
-          Neural Studio
+          Inkwell Studio
         </span>
       </Link>
 

@@ -6,8 +6,8 @@
  * mounted component can re-read without polling.
  */
 
-const KEY = "neural-studio.gallery.v1";
-const EVENT = "neural-studio:gallery:changed";
+const KEY = "inkwell.gallery.v1";
+const EVENT = "inkwell:gallery:changed";
 
 export type ImageVersion = {
   url: string;

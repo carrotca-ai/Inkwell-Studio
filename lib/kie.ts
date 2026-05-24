@@ -65,7 +65,7 @@ export async function uploadBase64(
     headers: authHeaders(key),
     body: JSON.stringify({
       base64Data,
-      uploadPath: "neural-studio",
+      uploadPath: "inkwell",
       fileName,
     }),
   });

@@ -27,7 +27,7 @@ export function TopBar() {
 
       <div className="flex-1 flex items-center justify-center">
         <span className="text-headline-lg-mobile md:text-headline-lg font-semibold tracking-tight">
-          Neural Studio
+          Inkwell Studio
         </span>
       </div>
 
